@@ -1,9 +1,8 @@
-import Joi from 'joi';
-import passwordComplexity from 'joi-password-complexity';
+import Joi from "joi";
 
 interface CreateTeam {
-    name: string;
-    description:string;
+  name: string;
+  description: string;
 }
 
 interface UpdateTeam {
@@ -11,8 +10,6 @@ interface UpdateTeam {
   name?: string;
   description?: string;
 }
-
-
 
 const createTeamSchema: Joi.ObjectSchema<CreateTeam> = Joi.object({
   name: Joi.string().required(),
@@ -25,8 +22,4 @@ const updateTeamSchema: Joi.ObjectSchema<UpdateTeam> = Joi.object({
   description: Joi.string(),
 });
 
-
-export {
-  createTeamSchema,
-  updateTeamSchema,
-};
+export { createTeamSchema, updateTeamSchema };

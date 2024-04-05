@@ -44,12 +44,12 @@ export const TeamService = {
   async updateTeam(
     id: string,
     name: string,
-    description:string
-  ): Promise<TeamDocument| null> {
+    description: string
+  ): Promise<TeamDocument | null> {
     try {
       const updatedTeam = await Team.findByIdAndUpdate(
         id,
-        { name,description},
+        { name, description },
         { new: true }
       );
       return updatedTeam;

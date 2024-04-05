@@ -54,7 +54,6 @@ const updateUserSchema: Joi.ObjectSchema<UpdateUserInput> = Joi.object({
   name: Joi.string().min(1).max(30),
   address: Joi.string(),
   gender: Joi.string(),
-  email: Joi.string().email(),
   phone: Joi.string(),
   role: Joi.string(),
   placeOfBirth: Joi.string(),
