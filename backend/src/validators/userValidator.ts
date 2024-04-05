@@ -1,14 +1,14 @@
-import Joi, { ObjectSchema, StringSchema } from 'joi';
+import Joi from 'joi';
 import passwordComplexity from 'joi-password-complexity';
 
-interface CreateUserSchema {
+interface CreateUserInput {
   name: string;
   surname: string;
   email: string;
-  password: StringSchema;
+  password: string;
 }
 
-interface UpdateUserSchema {
+interface UpdateUserInput {
   _id?: string;
   name?: string;
   surname?: string;
@@ -21,12 +21,20 @@ interface UpdateUserSchema {
   image?: string;
 }
 
-interface GetUserLogin {
+interface UserLoginInput {
   email: string;
   password: string;
 }
-
-const complexityOptions = {
+interface PasswordComplexityOptions {
+  min?: number;
+  max?: number;
+  lowerCase?: number;
+  upperCase?: number;
+  numeric?: number;
+  symbol?: number;
+  requirementCount?: number;
+}
+const complexityOptions: PasswordComplexityOptions = {
   min: 8,
   max: 16,
   lowerCase: 1,
@@ -36,33 +44,30 @@ const complexityOptions = {
   requirementCount: 4,
 };
 
-const createUserSchema: ObjectSchema<CreateUserSchema> = Joi.object({
-  name: Joi.string().min(1).max(30).required(),
-  surname: Joi.string().min(1).max(30).required(),
+const createUserSchema: Joi.ObjectSchema<CreateUserInput> = Joi.object({
   email: Joi.string().email().required(),
-  password: passwordComplexity(complexityOptions),
-}); 
+  password: Joi.string().required().custom(value => passwordComplexity(complexityOptions).validate(value)),
+});
 
-const updateUserSchema: ObjectSchema<UpdateUserSchema> = Joi.object({
-  _id: Joi.string(),
+const updateUserSchema: Joi.ObjectSchema<UpdateUserInput> = Joi.object({
+  id: Joi.string(),
   name: Joi.string().min(1).max(30),
-  surname: Joi.string().min(1).max(30),
-  address: Joi.string(), 
+  address: Joi.string(),
   gender: Joi.string(),
-  email: Joi.string(),
+  email: Joi.string().email(),
   phone: Joi.string(),
-  password: Joi.string(),
   role: Joi.string(),
-  image: Joi.string(),
-}); 
+  placeOfBirth: Joi.string(),
+  status:Joi.string(),
+});
 
-const getUserLogin: ObjectSchema<GetUserLogin> = Joi.object({
+const getUserLogin: Joi.ObjectSchema<UserLoginInput> = Joi.object({
   email: Joi.string().email().required(),
-  password: passwordComplexity(complexityOptions).required(),
-}); 
+  password: Joi.string().required().custom(value => passwordComplexity(complexityOptions).validate(value)),
+});
 
 export {
   createUserSchema,
   updateUserSchema,
-  getUserLogin
+  getUserLogin,
 };
