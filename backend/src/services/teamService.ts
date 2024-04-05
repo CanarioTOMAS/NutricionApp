@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Team, TeamDocument } from "../models/teamModel";
 import { logger } from "../utils/logger";
-import { Player } from "../models/playerModel";
+import { User } from "../models/userModel";
 
 export const TeamService = {
   async createTeam(
@@ -16,11 +16,11 @@ export const TeamService = {
         userId: new mongoose.Types.ObjectId(userId),
       });
       await newTeam.save();
-      await Player.findByIdAndUpdate(userId, { $push: { teams: newTeam._id } });
+      await User.findByIdAndUpdate(userId, { $push: { teams: newTeam._id } });
       return newTeam;
     } catch (error) {
-      logger.error(`Error al crear usuario: ${error}`);
-      throw new Error("Error al crear usuario");
+      logger.error(`Error al crear el equipo: ${error}`);
+      throw new Error("Error al crear equipo");
     }
   },
   async getTeamById(id: string): Promise<TeamDocument | null> {
