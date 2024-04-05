@@ -2,6 +2,7 @@ import express from "express";
 import userRoutes from "./routes/userRoutes";
 import teamRoutes from "./routes/teamRoutes";
 import mongoose from "mongoose";
+import playerRoutes from "./routes/playerRoutes";
 
 // URL de conexión a tu base de datos MongoDB
 const MONGODB_URI = "mongodb://localhost:27017/bn-sport";
@@ -32,5 +33,6 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 app.use("/api", teamRoutes);
+app.use("/api", playerRoutes);
 
 export default app;

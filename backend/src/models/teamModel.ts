@@ -1,10 +1,11 @@
-import { Schema, Document, model } from "mongoose";
+import mongoose, { Schema, Document, model } from "mongoose";
+import { PlayerDocument } from "./playerModel";
 
 export interface TeamDocument extends Document {
   name: string;
   description: string;
   userId: Schema.Types.ObjectId;
-  // players:Array<string>;
+  players: Array<PlayerDocument>;
   // calendar:Array<string>;
   // stacts:Array<string>;
   // tournament:Array<string>;
@@ -12,23 +13,28 @@ export interface TeamDocument extends Document {
   // imageCover:string;
 }
 
-const teamSchema = new Schema<TeamDocument>({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
+const teamSchema = new Schema<TeamDocument>(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Players" }],
   },
-  description: {
-    type: String,
-    required: false,
-    trim: true,
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref:'User'
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-// Crear y exportar el modelo de usuario
 export const Team = model<TeamDocument>("Team", teamSchema);
