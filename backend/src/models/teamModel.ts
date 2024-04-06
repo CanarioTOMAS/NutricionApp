@@ -1,5 +1,7 @@
 import mongoose, { Schema, Document, model } from "mongoose";
 import { PlayerDocument } from "./playerModel";
+import { TournamentDocument } from "./tournamentModel";
+import { SeasonDocument } from "./seasonModel";
 
 export interface TeamDocument extends Document {
   name: string;
@@ -8,7 +10,8 @@ export interface TeamDocument extends Document {
   players: Array<PlayerDocument>;
   // calendar:Array<string>;
   // stacts:Array<string>;
-  // tournament:Array<string>;
+  tournaments:Array<TournamentDocument>;
+  seasons:Array<SeasonDocument>;
   // imageProfile:string;
   // imageCover:string;
 }
@@ -31,6 +34,8 @@ const teamSchema = new Schema<TeamDocument>(
       ref: "User",
     },
     players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Players" }],
+    seasons: [{ type: mongoose.Schema.Types.ObjectId, ref: "Seasons" }],
+    tournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tournaments" }],
   },
   {
     timestamps: true,
