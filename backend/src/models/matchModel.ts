@@ -42,7 +42,10 @@ export interface MatchDocument extends Document {
   totalAssists: number;
   startingLineup: PlayerStartingLineup[];
   YellowCard: MatchEvents[];
-  redCard:MatchEvents[];
+  redCard: MatchEvents[];
+  firstTime:number;
+  lastTime:number;
+  totalTime:number;
 }
 
 const matchSchema = new Schema<MatchDocument>(
@@ -53,76 +56,114 @@ const matchSchema = new Schema<MatchDocument>(
       ref: "Tournament",
     },
     teamId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: "Team",
-      },
-      opposingTeamId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: "OpposingTeam",
-      },
-      totalRedCard: {
-        type:Number,
-        required:true,
-        trim:true
-      },     
-    totalYellowCard: {
-        type:Number,
-        required:true,
-        trim:true
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Team",
     },
-  goalsTeam:[
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
+    opposingTeamId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "OpposingTeam",
+    },
+    totalRedCard: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    totalYellowCard: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    goalsTeam: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],
+    goalsOpposingTeam: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    changes: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],
+    totalChanges: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    assists: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],
+    totalAssists: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    startingLineup: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],
+    YellowCard: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],
+    redCard: [
+      {
+        minute: { type: Number, required: true },
+        playerId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "Players",
+        },
+      },
+    ],lastTime:{
+      type:Number,
+      required:false,
+      trim:true
+    },
+    firstTime:{
+      type:Number,
+      required:false,
+      trim:true
+    },
+    totalTime:{
+      type:Number,
+      required:false,
+      trim:true
     }
-  ],
-  goalsOpposingTeam: {
-    type:Number,
-    required:true,
-    trim:true
-},
-  changes:[
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
-    }
-  ],
-  totalChanges: {
-    type:Number,
-    required:true,
-    trim:true
-},
-  assists: [
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
-    }
-  ],
-  totalAssists: {
-    type:Number,
-    required:true,
-    trim:true
-},
-  startingLineup: [
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
-    }
-  ],
-  YellowCard:[
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
-    }
-  ],
-  redCard:[
-    {
-      minute: { type: Number, required: true },
-      playerId: { type: Schema.Types.ObjectId, required: true ,ref:'Players'}
-    }
-  ]
   },
   {
     timestamps: true,
