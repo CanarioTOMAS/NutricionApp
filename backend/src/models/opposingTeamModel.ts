@@ -5,6 +5,7 @@ export interface OpposingTeamDocument extends Document {
   ownGoals: number;
   totalGoals: number;
   againstGoals: number;
+  teamId:Schema.Types.ObjectId;
   // imageProfile:string;
 }
 
@@ -30,6 +31,11 @@ const opposingTeamSchema = new Schema<OpposingTeamDocument>(
       required: true,
       trim: true,
     },
+    teamId:{
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Team",
+    }
   },
   {
     timestamps: true,

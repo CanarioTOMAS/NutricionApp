@@ -6,7 +6,7 @@ export interface SeasonDocument extends Document {
   startDate: string;
   endDate: string;
   tournaments: Array<TournamentDocument>;
-  idTeam: Schema.Types.ObjectId;
+  teamId: Schema.Types.ObjectId;
 }
 const seasonSchema = new Schema<SeasonDocument>(
   {
@@ -25,7 +25,7 @@ const seasonSchema = new Schema<SeasonDocument>(
         required:false,
         trim:true,
     },
-    idTeam: {
+    teamId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Team",

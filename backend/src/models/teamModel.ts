@@ -33,9 +33,9 @@ const teamSchema = new Schema<TeamDocument>(
       required: true,
       ref: "User",
     },
-    players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Players" }],
-    seasons: [{ type: mongoose.Schema.Types.ObjectId, ref: "Seasons" }],
-    tournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tournaments" }],
+    players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Players",required:false }],
+    seasons: [{ type: mongoose.Schema.Types.ObjectId, ref: "Seasons",required:false }],
+    tournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tournaments",required:false }],
   },
   {
     timestamps: true,

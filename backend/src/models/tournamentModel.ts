@@ -4,7 +4,7 @@ import { MatchDocument } from "./matchModel";
 export interface TournamentDocument extends Document {
   name: string;
   matchs: Array<MatchDocument>;
-  idSeason: Schema.Types.ObjectId;
+  seasonId: Schema.Types.ObjectId;
 }
 const tournamentSchema = new Schema<TournamentDocument>(
   {
@@ -13,7 +13,7 @@ const tournamentSchema = new Schema<TournamentDocument>(
         required:true,
         trim:true,
     },
-    idSeason: {
+    seasonId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Season",
