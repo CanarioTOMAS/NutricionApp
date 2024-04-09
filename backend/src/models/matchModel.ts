@@ -27,6 +27,7 @@ interface PlayerStartingLineup {
   playerId: Schema.Types.ObjectId;
   minutesPlayed: number;
 }
+  
 
 export interface MatchDocument extends Document {
   tournamentId: Schema.Types.ObjectId;
@@ -46,6 +47,8 @@ export interface MatchDocument extends Document {
   firstTime:number;
   lastTime:number;
   totalTime:number;
+  totalGolTeam:number;
+  date:string;
 }
 
 const matchSchema = new Schema<MatchDocument>(
