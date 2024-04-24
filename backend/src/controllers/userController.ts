@@ -42,7 +42,7 @@ export const UserController = {
       const userService = UserService.createUser(email, password);
       userService
         .then((user) => {
-          res.status(200).json("Usuario creado correctamente");
+          res.status(200).json(`Usuario creado correctamente`);
         })
         .catch((error) => {
           logger.error(`Error al crear el usuario: ${error}`);
